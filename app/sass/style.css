@@ -1,0 +1,18 @@
+body {
+  text-align: center;
+}
+body #field {
+  width: 90%;
+  height: 865px;
+  background: #c7c25d;
+  margin: 26px auto;
+  position: relative;
+}
+body #field #snake {
+  width: 30px;
+  height: 30px;
+  background: darkolivegreen;
+  position: absolute;
+}
+
+/*# sourceMappingURL=style.css.map */
