@@ -7,6 +7,4 @@ body #field {
     width: 30px;
     height: 30px;
     background: darkolivegreen;
-    position: absolute;
-    left: 10%;
-    top: 10%; }
+    position: absolute; }
