@@ -3,6 +3,10 @@
 const field = document.getElementById('field');
 const snake = document.getElementById('snake');
 const coordinatesField = field.getBoundingClientRect();
+let coordinatesFieldLeft = coordinatesField.left;
+let coordinatesFieldRight = coordinatesField.right;
+let coordinatesFieldTop = coordinatesField.top;
+let coordinatesFieldBottom = coordinatesField.bottom;
 
 let posX = 0;
 let posY = 0;
@@ -18,6 +22,8 @@ const directionSnake = {
     directionX: 1,
     directionY: 0,
 };
+
+const intervalId = setInterval(loop, 500);
 
 function moveRight() {
     posX += sizeSnake;
@@ -39,8 +45,6 @@ function moveDown() {
     snake.style.top = posY + 'px';
 }
 
-const intervalId = setInterval(loop, 500);
-
 function loop() {
     if (directionSnake.directionY === 1) {
         moveTop();
@@ -52,16 +56,24 @@ function loop() {
         moveLeft();
     }
 
-    if (posX < coordinatesField.x ||
-        posX > coordinatesField.right ||
-        posY < coordinatesField.y ||
-        posY > coordinatesField.bottom) {
+    if (posX < coordinatesFieldLeft ||
+        posX > coordinatesFieldRight ||
+        posY < coordinatesFieldTop ||
+        posY > coordinatesFieldBottom) {
         alert('game over');
         clearInterval(intervalId);
     }
 }
 
-window.addEventListener('load', function (setInterval) {
+function foodForSnake() {
+    const randomPointX = Math.floor(Math.random() * window.innerWidth);
+    const randomPointY = Math.floor(Math.random() * window.innerHeight);
+    const apple = document.getElementById('apple');
+    // apple.setAttribute('style','display: block; left: randomPointX; top: randomPointY;');
+    console.log(`randomX ${randomPointX} randomY ${randomPointY}`);
+}
+
+window.addEventListener('load', function (intervalId) {
 }, false);
 
 document.addEventListener('keydown', function (event) {
@@ -79,4 +91,6 @@ document.addEventListener('keydown', function (event) {
         directionSnake.directionY = -1;
     }
 });
+
+foodForSnake();
 
