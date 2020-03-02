@@ -1,14 +1,12 @@
 "use strict";
 
+const field = document.getElementById('field');
 const snake = document.getElementById('snake');
-const coordinatesSnake = snake.getBoundingClientRect();
-console.log(coordinatesSnake);
+const coordinatesField = field.getBoundingClientRect();
 
 let posX = 0;
 let posY = 0;
-let coordinatesSnakeX = coordinatesSnake.x;
-let coordinatesSnakeY = coordinatesSnake.y;
-let sizeSnake = 30;
+const sizeSnake = 30;
 
 const keyMap = {
     arrowUp: 38,
@@ -22,66 +20,50 @@ const directionSnake = {
 };
 
 function moveRight() {
-    snake.style.left = posX + 'px';
     posX += sizeSnake;
-    console.log(`right ${snake.style.left}`)
+    snake.style.left = posX + 'px';
 }
 
 function moveLeft() {
-    snake.style.left = posX + 'px';
     posX -= sizeSnake;
-    console.log(`left ${snake.style.left}`)
+    snake.style.left = posX + 'px';
 }
 
 function moveTop() {
-    snake.style.top = posY + 'px';
     posY -= sizeSnake;
-    console.log(`top ${snake.style.top}`)
+    snake.style.top = posY + 'px';
 }
 
 function moveDown() {
-    snake.style.top = posY + 'px';
     posY += sizeSnake;
-    console.log(`Down ${snake.style.top}`)
+    snake.style.top = posY + 'px';
 }
+
+const intervalId = setInterval(loop, 500);
 
 function loop() {
-    setInterval(function () {
-        if (directionSnake.directionY === 1) {
-            moveTop();
-        } else if (directionSnake.directionY === -1) {
-            moveDown();
-        } else if (directionSnake.directionX === 1) {
-            moveRight();
-        } else if (directionSnake.directionX === -1) {
-            moveLeft();
-        }
-    }, 500);
+    if (directionSnake.directionY === 1) {
+        moveTop();
+    } else if (directionSnake.directionY === -1) {
+        moveDown();
+    } else if (directionSnake.directionX === 1) {
+        moveRight();
+    } else if (directionSnake.directionX === -1) {
+        moveLeft();
+    }
+
+    if (posX < coordinatesField.x ||
+        posX > coordinatesField.right ||
+        posY < coordinatesField.y ||
+        posY > coordinatesField.bottom) {
+        alert('game over');
+        clearInterval(intervalId);
+    }
 }
 
-function getBordersField() {
-    const field = document.getElementById('field');
-    const coordinatesField = field.getBoundingClientRect();
-    let coordinatesFieldX = coordinatesField.x;
-    let coordinatesFieldY = coordinatesField.y;
-    setInterval(function () {
-        if (coordinatesSnakeX <= coordinatesFieldX) {
-            console.log('врезался left');
-            alert('game over');
-        } else if (coordinatesSnake.right >= coordinatesField.right) {
-            console.log('врезался right');
-            alert('game over');
-        } else if (coordinatesSnakeY <= coordinatesFieldY) {
-            console.log('врезался top');
-            alert('game over');
-        } else if (coordinatesSnake.bottom >= coordinatesField.bottom) {
-            console.log('врезался bottom');
-            alert('game over');
-        }
-    }, 500);
-    console.log(coordinatesField);
-}
-window.addEventListener('load', loop, false);
+window.addEventListener('load', function (setInterval) {
+}, false);
+
 document.addEventListener('keydown', function (event) {
     if (event.keyCode === keyMap.arrowLeft) {
         directionSnake.directionX = -1;
@@ -98,4 +80,3 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
-getBordersField();
