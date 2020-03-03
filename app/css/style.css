@@ -1,11 +1,10 @@
 body #field {
   width: 100%;
-  height: 865px;
+  height: 757px;
   background: #c7c25d;
   position: relative; }
   body #field #snake {
     width: 30px;
     height: 30px;
     background: darkolivegreen;
-    position: absolute;
-    }
+    position: absolute; }
