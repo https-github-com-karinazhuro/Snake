@@ -1,11 +1,19 @@
 "use strict";
 
+const field = document.getElementById('field');
 const snake = document.getElementById('snake');
+const coordinatesField = field.getBoundingClientRect();
 
 let posX = 0;
 let posY = 0;
 const sizeSnake = 30;
 
+const keyMap = {
+    arrowUp: 38,
+    arrowDown: 40,
+    arrowRight: 39,
+    arrowLeft: 37,
+};
 
 const directionSnake = {
     directionX: 1,
@@ -46,12 +54,7 @@ function getDirectionSnake() {
     }
 }
 
-
-function loop() {
-    const field = document.getElementById('field');
-    const coordinatesField = field.getBoundingClientRect();
-
-    getDirectionSnake();
+function onFinish() {
     if (posX < coordinatesField.x ||
         posX > coordinatesField.right ||
         posY < coordinatesField.y ||
@@ -59,18 +62,16 @@ function loop() {
         alert('game over');
         clearInterval(intervalId);
     }
+
+}
+function loop() {
+    getDirectionSnake();
+    onFinish();
 }
 
 intervalId = setInterval(loop, 500);
 
 document.addEventListener('keydown', function (event) {
-    const keyMap = {
-        arrowUp: 38,
-        arrowDown: 40,
-        arrowRight: 39,
-        arrowLeft: 37,
-    };
-
     if (event.keyCode === keyMap.arrowLeft) {
         directionSnake.directionX = -1;
         directionSnake.directionY = 0;
