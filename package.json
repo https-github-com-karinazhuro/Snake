@@ -1,23 +1,22 @@
 {
   "name": "snake",
   "version": "1.0.0",
-  "description": "Game 'Snake'",
+  "description": "Game \"Snake\"",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/https-github-com-karinazhuro/Snake.git"
+    "url": "git+https://github.com/karinazhuro/Snake.git"
   },
-  "author": "",
+  "author": "Karina Zhuro",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/https-github-com-karinazhuro/Snake/issues"
+    "url": "https://github.com/karinazhuro/Snake/issues"
   },
-  "homepage": "https://github.com/https-github-com-karinazhuro/Snake#readme",
+  "homepage": "https://github.com/karinazhuro/Snake#readme",
   "devDependencies": {
-    "browser-sync": "^2.26.7",
     "gulp": "^4.0.2",
     "gulp-sass": "^4.0.2"
   }
