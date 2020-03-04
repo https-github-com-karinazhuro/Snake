@@ -1,12 +1,13 @@
 "use strict";
 
 const field = document.getElementById('field');
+// const snake = document.getElementsByClassName('snake')[0];
 const snake = document.getElementById('snake');
 const coordinatesField = field.getBoundingClientRect();
 
 let posX = 0;
 let posY = 0;
-const sizeSnake = 30;
+const sizeSnakeForMove = 30;
 
 const keyMap = {
     arrowUp: 38,
@@ -23,22 +24,22 @@ const directionSnake = {
 let intervalId;
 
 function moveRight() {
-    posX += sizeSnake;
+    posX += sizeSnakeForMove;
     snake.style.left = posX + 'px';
 }
 
 function moveLeft() {
-    posX -= sizeSnake;
+    posX -= sizeSnakeForMove;
     snake.style.left = posX + 'px';
 }
 
 function moveTop() {
-    posY -= sizeSnake;
+    posY -= sizeSnakeForMove;
     snake.style.top = posY + 'px';
 }
 
 function moveDown() {
-    posY += sizeSnake;
+    posY += sizeSnakeForMove;
     snake.style.top = posY + 'px';
 }
 
@@ -62,14 +63,22 @@ function onFinish() {
         alert('game over');
         clearInterval(intervalId);
     }
-
 }
 function loop() {
-    getDirectionSnake();
-    onFinish();
+    getDirectionSnake(snake);
+    onFinish(snake);
 }
 
+function primarySnakeSize() {
+    const snakeClone = snake.cloneNode();
+    const snakePaste = snake.before(snakeClone);
+    setTimeout(intervalId, 500);
+
+}
 intervalId = setInterval(loop, 500);
+
+primarySnakeSize();
+
 
 document.addEventListener('keydown', function (event) {
     if (event.keyCode === keyMap.arrowLeft) {
