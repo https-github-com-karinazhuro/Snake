@@ -1,12 +1,22 @@
 "use strict";
 
 const field = document.getElementById('field');
-// const snake = document.getElementsByClassName('snake')[0];
 const snake = document.getElementById('snake');
 const coordinatesField = field.getBoundingClientRect();
+const coordinatesSnake = snake.getBoundingClientRect();
 
-let posX = 0;
-let posY = 0;
+const snakeClone = snake.cloneNode(false);
+const snake2 = snake.after(snakeClone);
+const coordinatesSnake2 = snake2.getBoundingClientRect();
+
+let intervalId;
+
+const snakePosition = {
+    posX: 0,
+    posY: 0,
+};
+// let posX = 0;
+// let posY = 0;
 const sizeSnakeForMove = 30;
 
 const keyMap = {
@@ -21,26 +31,29 @@ const directionSnake = {
     directionY: 0,
 };
 
-let intervalId;
-
+const snakeBody = {
+    [snake]: [coordinatesSnake.left, coordinatesSnake.top],
+    [snake2]: [coordinatesSnake2.left, coordinatesSnake2.top],
+};
+console.log(snakeBody[snake], snakeBody[snake2]);
 function moveRight() {
-    posX += sizeSnakeForMove;
-    snake.style.left = posX + 'px';
+    snakePosition.posX += sizeSnakeForMove;
+    snake.style.left = snakePosition.posX + 'px';
 }
 
 function moveLeft() {
-    posX -= sizeSnakeForMove;
-    snake.style.left = posX + 'px';
+    snakePosition.posX -= sizeSnakeForMove;
+    snake.style.left = snakePosition.posX + 'px';
 }
 
 function moveTop() {
-    posY -= sizeSnakeForMove;
-    snake.style.top = posY + 'px';
+    snakePosition.posY -= sizeSnakeForMove;
+    snake.style.top = snakePosition.posY + 'px';
 }
 
 function moveDown() {
-    posY += sizeSnakeForMove;
-    snake.style.top = posY + 'px';
+    snakePosition.posY += sizeSnakeForMove;
+    snake.style.top = snakePosition.posY + 'px';
 }
 
 function getDirectionSnake() {
@@ -56,29 +69,22 @@ function getDirectionSnake() {
 }
 
 function onFinish() {
-    if (posX < coordinatesField.x ||
-        posX > coordinatesField.right ||
-        posY < coordinatesField.y ||
-        posY > coordinatesField.bottom) {
+    if (snakePosition.posX < coordinatesField.x ||
+        snakePosition.posX > coordinatesField.right ||
+        snakePosition.posY < coordinatesField.y ||
+        snakePosition.sY > coordinatesField.bottom) {
         alert('game over');
         clearInterval(intervalId);
     }
 }
+
 function loop() {
-    getDirectionSnake(snake);
-    onFinish(snake);
-}
-
-function primarySnakeSize() {
-    const snakeClone = snake.cloneNode();
-    const snakePaste = snake.before(snakeClone);
-    setTimeout(intervalId, 500);
+    getDirectionSnake();
+    onFinish();
 
 }
+
 intervalId = setInterval(loop, 500);
-
-primarySnakeSize();
-
 
 document.addEventListener('keydown', function (event) {
     if (event.keyCode === keyMap.arrowLeft) {
